@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: test.LoginPageTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 329.464 s <<< FAILURE! - in test.LoginPageTest
+loginEmptyPassword  Time elapsed: 77.801 s  <<< ERROR!
+org.openqa.selenium.ElementNotInteractableException: 
+Element <button class="button svelte-no02r hide" type="button"> could not be scrolled into view
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'MACBOOK', ip: '192.168.1.122', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 79.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20200720193547, moz:geckodriverVersion: 0.27.0, moz:headless: true, moz:processID: 37200, moz:profile: C:\Users\Guest User\AppData..., moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, platformVersion: 10.0, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 74a9bb9b-227e-42d9-9c96-8fa9cef7fd6f
+	at test.LoginPageTest.loginEmptyPassword(LoginPageTest.java:80)
+
