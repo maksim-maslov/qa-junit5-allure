@@ -4,22 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>testgroup</groupId>
-    <artifactId>mailrutest</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <packaging>jar</packaging>
+    <groupId>org.example.qa</groupId>
+    <artifactId>page-object</artifactId>
+    <version>1.0</version>
 
     <properties>
-        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-        <junit-platform-surefire-provider.version>1.1.0</junit-platform-surefire-provider.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+        <junit-platform-surefire-provider.version>1.3.2</junit-platform-surefire-provider.version>
         <aspectj.version>1.8.10</aspectj.version>
+        <selenium-java.vesrion>3.141.59</selenium-java.vesrion>
+        <webdrivermanager.version>3.8.1</webdrivermanager.version>
+        <junit-platform.version>1.5.2</junit-platform.version>
+        <junit-jupiter-engine.version>5.7.0</junit-jupiter-engine.version>
         <allure-junit5.version>2.6.0</allure-junit5.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.home>C:\Program Files\Java\jdk1.8.0_152\bin\javac</java.home>
-        <junit.platform.version>1.5.2</junit.platform.version>
     </properties>
 
     <build>
@@ -27,25 +26,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <verbose>true</verbose>
                     <fork>true</fork>
-                    <executable>${java.home}</executable>
                     <compilerVersion>1.8</compilerVersion>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <argLine>
-                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <properties>
                         <property>
@@ -67,7 +67,6 @@
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>${junit-platform-surefire-provider.version}</version>
                     </dependency>
-
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
@@ -91,33 +90,31 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>${selenium-java.vesrion}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>3.8.1</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
+            <version>${junit-jupiter-engine.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
+            <version>${junit-platform.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>1.2.0-M1</version>
+            <version>${junit-platform-surefire-provider.version}</version>
         </dependency>
 
         <dependency>

@@ -1,19 +1,16 @@
-package test;
+package org.example.qa.pageobject.test;
 
-import page.SignUpPage;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.*;
+import org.example.qa.pageobject.page.SignUpPage;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import io.qameta.allure.*;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,10 +22,22 @@ public class SignUpPageTest {
 
     @BeforeEach
     public void setUp() {
-        StringBuilder pathToDriver = new StringBuilder(Paths.get(".").toAbsolutePath().normalize().toString());
-        String fileSeparator = File.separator;
-        pathToDriver.append(fileSeparator).append("drivers").append(fileSeparator).append("geckodriver.exe");
-        System.setProperty("webdriver.gecko.driver", pathToDriver.toString());
+
+//        StringBuilder pathToDriver = new StringBuilder(Paths.get(".").toAbsolutePath().normalize().toString());
+//        String fileSeparator = File.separator;
+//        pathToDriver.append(fileSeparator).append("drivers").append(fileSeparator).append("geckodriver.exe");
+//        System.setProperty("webdriver.gecko.driver", pathToDriver.toString());
+
+//        try {
+//            System.setProperty("webdriver.gecko.driver",
+//                Paths.get(getClass().getProtectionDomain().getCodeSource().getLocation().toURI())
+//                    .resolve(Paths.get("geckodriver.exe"))
+//                    .toFile()
+//                    .getAbsolutePath()
+//            );
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
 
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
@@ -36,14 +45,16 @@ public class SignUpPageTest {
 
         driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://account.mail.ru/signup/");
         signUpPage = new SignUpPage(driver);
     }
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
 
@@ -69,7 +80,7 @@ public class SignUpPageTest {
 
     @Test
     public void signUpIncorrectUsername() {
-        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("test****", "");
+        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("example.qa.pageobject.example.qa.pageobject.test****", "");
         String error = newSignUpPage.getErrorInvalidUsernameText();
         assertEquals("Введено некорректное имя аккаунта. Допустимо использовать только латинские буквы, цифры, знак подчеркивания, точку и минус.", error);
     }
@@ -90,21 +101,21 @@ public class SignUpPageTest {
 
     @Test
     public void signUpShortPassword() {
-        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("", "test");
+        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("", "example.qa.pageobject/example.qa.pageobject.test");
         String error = newSignUpPage.getErrorTooShortPasswordText();
         assertEquals("Используйте не менее 8 символов", error);
     }
 
     @Test
     public void signUpIncorectPassword() {
-        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("", "test test");
+        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("", "example.qa.pageobject.example.qa.pageobject.test example.qa.pageobject.example.qa.pageobject.test");
         String error = newSignUpPage.getErrorInvalidPasswordText();
         assertEquals("Пароль не должен содержать пробелы", error);
     }
 
     @Test
     public void signUpLikeUsernamePassword() {
-        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("test****", "********");
+        SignUpPage newSignUpPage = signUpPage.registeredWithInvalidCreds("example.qa.pageobject.example.qa.pageobject.test****", "********");
         String error = newSignUpPage.getErrorLikeUsernamePasswordText();
         assertEquals("Не используйте имя аккаунта и другие личные данные", error);
     }

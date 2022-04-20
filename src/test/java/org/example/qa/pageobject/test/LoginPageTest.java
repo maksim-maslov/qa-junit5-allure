@@ -1,20 +1,17 @@
-package test;
-
-import page.LoginPage;
-import page.SignUpPage;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
+package org.example.qa.pageobject.test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.*;
+import org.example.qa.pageobject.page.LoginPage;
+import org.example.qa.pageobject.page.SignUpPage;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import io.qameta.allure.*;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,10 +23,6 @@ public class LoginPageTest {
 
     @BeforeEach
     public void setUp() {
-        StringBuilder pathToDriver = new StringBuilder(Paths.get(".").toAbsolutePath().normalize().toString());
-        String fileSeparator = File.separator;
-        pathToDriver.append(fileSeparator).append("drivers").append(fileSeparator).append("geckodriver.exe");
-        System.setProperty("webdriver.gecko.driver", pathToDriver.toString());
 
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
@@ -37,14 +30,16 @@ public class LoginPageTest {
 
         driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.mail.ru/");
         loginPage = new LoginPage(driver);
     }
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Epic("TESTING FOR https://www.mail.ru/ authorization")
